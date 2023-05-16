@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-yummier_recipes-schema
+      author: Konrad Swierszcz
+      changes:
+        - createTable:
+            tableName: recipes
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(80)
+                  constraints:
+                    nullable: false

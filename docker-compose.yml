@@ -1,0 +1,10 @@
+services:
+  postgress:
+    image: postgres
+    container_name: postgres_for_yummier_recipe
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: konrad
+      POSTGRES_PASSWORD: konrad
+      POSTGRES_DB: yummy_recipes

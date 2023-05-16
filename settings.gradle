@@ -1,0 +1,5 @@
+rootProject.name = 'yummy_reciepes'
+
+include 'application'
+include 'shared'
+
