@@ -5,13 +5,9 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data(staticConstructor = "of")
-public class RecipeId implements DomainIdentity {
+public class UserId implements DomainIdentity {
 
-    private final UUID id;
-
-    public RecipeId(UUID id) {
-        this.id = id;
-    }
+   private final UUID id;
 
     @Override
     public UUID value() {

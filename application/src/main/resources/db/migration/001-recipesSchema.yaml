@@ -17,3 +17,13 @@ databaseChangeLog:
                   type: varchar(80)
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 001-recipes_table_add_author_column
+      author: Konrad Swierszcz
+      changes:
+        - addColumn:
+            tableName: recipes
+            columns:
+              - column:
+                  name: author
+                  type: uuid

@@ -4,6 +4,5 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.postgresql:postgresql:42.6.0'
-    implementation 'org.liquibase:liquibase-core:4.22.0'
-
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
 }

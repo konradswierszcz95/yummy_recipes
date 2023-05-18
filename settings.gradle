@@ -2,4 +2,6 @@ rootProject.name = 'yummy_reciepes'
 
 include 'application'
 include 'shared'
+include 'recipe'
+include 'recipe_api'
 
