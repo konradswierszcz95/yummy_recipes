@@ -2,6 +2,7 @@ package pl.konrad.swierszcz.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.konrad.swierszcz.dto.RecipeDto;
 import pl.konrad.swierszcz.model.id.RecipeId;
@@ -11,7 +12,8 @@ import pl.konrad.swierszcz.usecase.AddRecipeUseCase;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@RestController("/recipe")
+@RestController
+@RequestMapping("/recipe")
 public class RecipeController {
 
     private final AddRecipeUseCase addRecipeUseCase;

@@ -1,25 +1,39 @@
 package pl.konrad.swierszcz.model.id;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 import java.util.UUID;
 
-@Data(staticConstructor = "of")
-public class RecipeId implements DomainIdentity {
+public class RecipeId extends DomainIdentity<UUID> {
 
-    private final UUID id;
+    private RecipeId() {super();}
 
-    public RecipeId(UUID id) {
-        this.id = id;
+    private RecipeId(UUID id) {
+        super(id);
+    }
+
+    public static RecipeId of(UUID uuid) {
+        return new RecipeId(uuid);
+    }
+
+    @JsonCreator
+    public static RecipeId of(String uuid) {
+        return new RecipeId(UUID.fromString(uuid));
     }
 
     @Override
-    public UUID value() {
-        return this.id;
+    @JsonGetter("recipeId")
+    public String jsonRootGetter() {
+        return valueAsString();
     }
 
     @Override
-    public String valueAsString() {
-        return this.id.toString();
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if(obj != null && !(obj instanceof RecipeId))
+            return false;
+        return super.equals(obj);
     }
 }

@@ -1,5 +1,6 @@
 dependencies {
     implementation project(':shared')
+    implementation project(':recipe')
     implementation project(':recipe_api')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
