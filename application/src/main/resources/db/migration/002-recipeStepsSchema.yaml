@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-yummier_recipeSteps-schema
+      author: Konrad Swierszcz
+      changes:
+        - createTable:
+            tableName: recipe_steps
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: step_content
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: picture_url
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: recipe_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_containing_recipe
+                    references: recipes(id)
+  - changeSet:
+      id: 002-recipeSteps-table-add-position-column
+      author: Konrad Swierszcz
+      changes:
+        - addColumn:
+            tableName: recipe_steps
+            columns:
+              - column:
+                  name: position
+                  type: int
+                  constraints:
+                    nullable: false

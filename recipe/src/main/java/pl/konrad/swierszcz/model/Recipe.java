@@ -7,6 +7,8 @@ import lombok.*;
 import pl.konrad.swierszcz.model.id.RecipeId;
 import pl.konrad.swierszcz.model.id.UserId;
 
+import java.util.List;
+
 @Builder(builderMethodName = "aRecipe", setterPrefix = "with", toBuilder = true)
 @Data
 @AllArgsConstructor(staticName = "of")
@@ -22,4 +24,8 @@ public class Recipe {
     @Embedded
     @AttributeOverride(name = "id", column = @Column(name = "authorId"))
     UserId author;
+    @Singular
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "recipe_id")
+    List<RecipeStep> steps;
 }
