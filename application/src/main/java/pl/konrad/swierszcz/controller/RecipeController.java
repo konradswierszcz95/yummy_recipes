@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.konrad.swierszcz.dto.RecipeDto;
 import pl.konrad.swierszcz.dto.RecipeStepDto;
+import pl.konrad.swierszcz.exception.reciepe.RecipeErrorCodes;
+import pl.konrad.swierszcz.exception.reciepe.RecipeException;
 import pl.konrad.swierszcz.model.id.RecipeId;
 import pl.konrad.swierszcz.model.id.RecipeStepId;
 import pl.konrad.swierszcz.model.id.UserId;
@@ -48,5 +50,8 @@ public class RecipeController {
         return addRecipeUseCase.execute(recipeDto);
     }
 
-
+    @PostMapping("/unprocesable")
+    public RecipeId throwUnprocesableEntity() {
+        throw new RecipeException(RecipeErrorCodes.RECIPE_HAS_NOT_ENOUGH_STEPS.toString());
+    }
 }
