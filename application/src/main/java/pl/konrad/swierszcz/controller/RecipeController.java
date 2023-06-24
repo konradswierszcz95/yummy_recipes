@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.konrad.swierszcz.dto.RecipeDto;
 import pl.konrad.swierszcz.dto.RecipeStepDto;
-import pl.konrad.swierszcz.exception.reciepe.RecipeErrorCodes;
-import pl.konrad.swierszcz.exception.reciepe.RecipeException;
+import pl.konrad.swierszcz.exception.reciepe.RecipeHasNotEnoughStepsException;
 import pl.konrad.swierszcz.model.id.RecipeId;
 import pl.konrad.swierszcz.model.id.RecipeStepId;
 import pl.konrad.swierszcz.model.id.UserId;
@@ -27,12 +26,12 @@ public class RecipeController {
         RecipeId recipeId = RecipeId.of(UUID.randomUUID());
         RecipeDto recipeDto = RecipeDto.aRecipeDto()
                 .withId(recipeId)
-                .withName("randooom")
+                .withName("reciepe name " + recipeId)
                 .withAuthor(UserId.of(UUID.randomUUID()))
                 .withStep(
                         RecipeStepDto.aRecipeStepDto()
                                 .withId(RecipeStepId.of(UUID.randomUUID()))
-                                .withStepContent("some random step content")
+                                .withStepContent("aaa")
                                 .withRecipeId(recipeId)
                                 .withPosition(1)
                                 .build()
@@ -40,9 +39,17 @@ public class RecipeController {
                 .withStep(
                         RecipeStepDto.aRecipeStepDto()
                                 .withId(RecipeStepId.of(UUID.randomUUID()))
-                                .withStepContent("another random step content")
+                                .withStepContent("bbb")
                                 .withRecipeId(recipeId)
                                 .withPosition(2)
+                                .build()
+                )
+                .withStep(
+                        RecipeStepDto.aRecipeStepDto()
+                                .withId(RecipeStepId.of(UUID.randomUUID()))
+                                .withStepContent("ccc")
+                                .withRecipeId(recipeId)
+                                .withPosition(3)
                                 .build()
                 )
                 .build();
@@ -52,6 +59,6 @@ public class RecipeController {
 
     @PostMapping("/unprocesable")
     public RecipeId throwUnprocesableEntity() {
-        throw new RecipeException(RecipeErrorCodes.RECIPE_HAS_NOT_ENOUGH_STEPS.toString());
+        throw new RecipeHasNotEnoughStepsException(UUID.randomUUID(), 0);
     }
 }

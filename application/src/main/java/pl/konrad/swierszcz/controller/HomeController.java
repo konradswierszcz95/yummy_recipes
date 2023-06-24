@@ -17,4 +17,9 @@ public class HomeController {
     String id() {
         return RecipeId.of(UUID.randomUUID()).valueAsString();
     }
+
+    @GetMapping("/unexpected")
+    public void throwUnexpected() {
+        throw new RuntimeException();
+    }
 }

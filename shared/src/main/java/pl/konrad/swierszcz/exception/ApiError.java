@@ -12,5 +12,6 @@ public class ApiError {
     private final HttpStatus status;
     private final long timestamp;
     private final String message;
+    private final String code;
     private final String debugMessage;
 }
