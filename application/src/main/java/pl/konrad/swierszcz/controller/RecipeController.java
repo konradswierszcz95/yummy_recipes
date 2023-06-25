@@ -1,7 +1,9 @@
 package pl.konrad.swierszcz.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.konrad.swierszcz.dto.RecipeDto;
@@ -10,6 +12,7 @@ import pl.konrad.swierszcz.exception.reciepe.RecipeHasNotEnoughStepsException;
 import pl.konrad.swierszcz.model.id.RecipeId;
 import pl.konrad.swierszcz.model.id.RecipeStepId;
 import pl.konrad.swierszcz.model.id.UserId;
+import pl.konrad.swierszcz.rest.request.AddRecipeRequest;
 import pl.konrad.swierszcz.usecase.AddRecipeUseCase;
 
 import java.util.UUID;
@@ -22,11 +25,11 @@ public class RecipeController {
     private final AddRecipeUseCase addRecipeUseCase;
 
     @PostMapping("/random")
-    public RecipeId saveRandomRecipe() {
+    public RecipeId saveRandomRecipe(@Valid @RequestBody AddRecipeRequest request) {
         RecipeId recipeId = RecipeId.of(UUID.randomUUID());
         RecipeDto recipeDto = RecipeDto.aRecipeDto()
                 .withId(recipeId)
-                .withName("reciepe name " + recipeId)
+                .withName(request.getName())
                 .withAuthor(UserId.of(UUID.randomUUID()))
                 .withStep(
                         RecipeStepDto.aRecipeStepDto()

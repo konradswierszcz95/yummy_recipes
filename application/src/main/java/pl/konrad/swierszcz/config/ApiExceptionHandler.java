@@ -1,5 +1,6 @@
 package pl.konrad.swierszcz.config;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +33,27 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({
+            ConstraintViolationException.class
+    })
+    public final ResponseEntity<ApiError> handleConstraintViolationException(ConstraintViolationException exception, WebRequest request) {
+//        var violations = exception.getConstraintViolations();
+//        for(ConstraintViolation<?> violation: violations) {
+//            violation.getConstraintDescriptor()
+//        }
+        var apiError = ApiError.aApiError()
+                .withStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+                .withTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC))
+                .withCode("VALIDATION_CONSTRAINT_VIOLATION")
+                .withMessage(exception.getMessage())
+                .withDebugMessage(request.toString())
+                .build();
+        return new ResponseEntity<>(apiError, HttpStatusCode.valueOf(409));
+    }
+
+    @ExceptionHandler({
             Exception.class
     })
-    public final ResponseEntity<ApiError> handleUnprocessableEntityException(Exception exception, WebRequest request) {
+    public final ResponseEntity<ApiError> handleUnexpectedEntityException(Exception exception, WebRequest request) {
         var apiError = ApiError.aApiError()
                 .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
                 .withTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC))
