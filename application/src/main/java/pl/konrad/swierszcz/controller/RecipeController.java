@@ -26,36 +26,23 @@ public class RecipeController {
 
     private final AddRecipeUseCase addRecipeUseCase;
 
-    @PostMapping("/random")
-    public RecipeId saveRandomRecipe(@RequestBody @Valid AddRecipeRequest request) {
+    @PostMapping("/add")
+    public RecipeId addRecipe(@RequestBody @Valid AddRecipeRequest request) {
         RecipeId recipeId = RecipeId.of(UUID.randomUUID());
         RecipeDto recipeDto = RecipeDto.aRecipeDto()
                 .withId(recipeId)
                 .withName(request.getName())
                 .withAuthor(UserId.of(UUID.randomUUID()))
-                .withStep(
-                        RecipeStepDto.aRecipeStepDto()
-                                .withId(RecipeStepId.of(UUID.randomUUID()))
-                                .withStepContent("aaa")
-                                .withRecipeId(recipeId)
-                                .withPosition(1)
-                                .build()
-                )
-                .withStep(
-                        RecipeStepDto.aRecipeStepDto()
-                                .withId(RecipeStepId.of(UUID.randomUUID()))
-                                .withStepContent("bbb")
-                                .withRecipeId(recipeId)
-                                .withPosition(2)
-                                .build()
-                )
-                .withStep(
-                        RecipeStepDto.aRecipeStepDto()
-                                .withId(RecipeStepId.of(UUID.randomUUID()))
-                                .withStepContent("ccc")
-                                .withRecipeId(recipeId)
-                                .withPosition(3)
-                                .build()
+                .withSteps(
+                        request.getSteps().stream().map(requestRecipeStep ->
+                                RecipeStepDto.aRecipeStepDto()
+                                        .withId(RecipeStepId.of(UUID.randomUUID()))
+                                        .withRecipeId(recipeId)
+                                        .withPosition(requestRecipeStep.getPosition())
+                                        .withStepContent(requestRecipeStep.getContent())
+                                        .withPictureUrl(requestRecipeStep.getPictureUrl())
+                                        .build()
+                        ).toList()
                 )
                 .build();
 

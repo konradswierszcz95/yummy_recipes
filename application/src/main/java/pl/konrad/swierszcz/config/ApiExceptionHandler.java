@@ -59,6 +59,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .withMessage(UnexpectedErrorCodes.UNEXPECTED_EXCEPTION.getMessage())
                 .withDebugMessage(request.toString())
                 .build();
+        exception.printStackTrace();
         return new ResponseEntity<>(apiError, HttpStatusCode.valueOf(500));
     }
 }
