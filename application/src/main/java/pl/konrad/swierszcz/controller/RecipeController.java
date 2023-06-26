@@ -2,6 +2,7 @@ package pl.konrad.swierszcz.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import pl.konrad.swierszcz.usecase.AddRecipeUseCase;
 
 import java.util.UUID;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/recipe")
@@ -25,7 +27,7 @@ public class RecipeController {
     private final AddRecipeUseCase addRecipeUseCase;
 
     @PostMapping("/random")
-    public RecipeId saveRandomRecipe(@Valid @RequestBody AddRecipeRequest request) {
+    public RecipeId saveRandomRecipe(@RequestBody @Valid AddRecipeRequest request) {
         RecipeId recipeId = RecipeId.of(UUID.randomUUID());
         RecipeDto recipeDto = RecipeDto.aRecipeDto()
                 .withId(recipeId)
