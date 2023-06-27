@@ -1,10 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 002-yummier_recipeSteps-schema
+      id: 002-yummier_recipeSteps-table
       author: Konrad Swierszcz
       changes:
         - createTable:
             tableName: recipe_steps
+            schemaName: recipe
             columns:
               - column:
                   name: id
@@ -28,13 +29,14 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     foreignKeyName: fk_containing_recipe
-                    references: recipes(id)
+                    references: recipe.recipes(id)
   - changeSet:
       id: 002-recipeSteps-table-add-position-column
       author: Konrad Swierszcz
       changes:
         - addColumn:
             tableName: recipe_steps
+            schemaName: recipe
             columns:
               - column:
                   name: position

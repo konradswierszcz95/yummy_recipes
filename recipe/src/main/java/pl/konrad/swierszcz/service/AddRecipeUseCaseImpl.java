@@ -2,16 +2,14 @@ package pl.konrad.swierszcz.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import pl.konrad.swierszcz.dto.RecipeStepDto;
-import pl.konrad.swierszcz.model.Recipe;
 import org.springframework.stereotype.Service;
-import pl.konrad.swierszcz.model.RecipeStep;
-import pl.konrad.swierszcz.model.id.RecipeId;
 import pl.konrad.swierszcz.dto.RecipeDto;
-import pl.konrad.swierszcz.usecase.AddRecipeUseCase;
+import pl.konrad.swierszcz.model.Recipe;
+import pl.konrad.swierszcz.model.id.RecipeId;
 import pl.konrad.swierszcz.repository.RecipeRepository;
+import pl.konrad.swierszcz.usecase.AddRecipeUseCase;
 
-import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,18 +19,8 @@ public class AddRecipeUseCaseImpl implements AddRecipeUseCase {
 
     @Override
     public RecipeId execute(RecipeDto recipe) {
-        Recipe newRecipe = Recipe.aRecipe()
-                .withId(recipe.getId())
-                .withName(recipe.getName())
-                .withAuthor(recipe.getAuthor())
-                .withSteps(mapSteps(recipe.getSteps()))
-                .build();
+        RecipeId recipeId = RecipeId.of(UUID.randomUUID());
+        Recipe newRecipe = Recipe.ofDto(recipe, recipeId);
         return repository.save(newRecipe).getId();
-    }
-
-    private List<RecipeStep> mapSteps(List<RecipeStepDto> stepDtos) {
-        return stepDtos.stream()
-                .map(RecipeStep::ofDto)
-                .toList();
     }
 }

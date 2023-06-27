@@ -1,5 +1,7 @@
 databaseChangeLog:
   - include:
-      file: db/migration/001-recipesSchema.yaml
+      file: db/migration/000-createSchemas.yaml
   - include:
-      file: db/migration/002-recipeStepsSchema.yaml
+      file: db/migration/001-recipesTable.yaml
+  - include:
+      file: db/migration/002-recipeStepsTable.yaml

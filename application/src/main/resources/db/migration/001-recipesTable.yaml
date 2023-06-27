@@ -1,10 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-yummier_recipes-schema
+      id: 001-yummier_recipes-table
       author: Konrad Swierszcz
       changes:
         - createTable:
             tableName: recipes
+            schemaName: recipe
             columns:
               - column:
                   name: id
@@ -23,16 +24,17 @@ databaseChangeLog:
       changes:
         - addColumn:
             tableName: recipes
+            schemaName: recipe
             columns:
               - column:
                   name: author
                   type: uuid
   - changeSet:
       id: 001-rename_author_to_author_id_column
-      author: liquibase-docs
+      author: Konrad Swierszcz
       changes:
         - renameColumn:
             newColumnName: author_id
             oldColumnName: author
-            schemaName: public
             tableName: recipes
+            schemaName: recipe

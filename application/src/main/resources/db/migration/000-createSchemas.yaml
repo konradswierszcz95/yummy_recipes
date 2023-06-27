@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 000-yummier_create_recipe_schema
+      author: Konrad Swierszcz
+      changes:
+        - sql:
+            sql: create schema recipe

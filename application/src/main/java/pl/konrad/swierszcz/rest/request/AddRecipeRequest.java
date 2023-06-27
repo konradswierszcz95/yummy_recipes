@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.konrad.swierszcz.dto.RecipeDto;
+import pl.konrad.swierszcz.dto.RecipeStepDto;
+import pl.konrad.swierszcz.model.id.UserId;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +28,14 @@ public class AddRecipeRequest {
 
     private List<RequestRecipeStep> steps;
 
+    public RecipeDto toDto() {
+        return RecipeDto.aRecipeDto()
+                .withName(name)
+                .withAuthorId(UserId.of(authorId))
+                .withSteps(steps.stream().map(RequestRecipeStep::toDto).toList())
+                .build();
+    }
+
     @AllArgsConstructor(staticName = "of")
     @NoArgsConstructor
     @Data
@@ -37,5 +48,13 @@ public class AddRecipeRequest {
         private Integer position;
 
         private String pictureUrl;
+
+        public RecipeStepDto toDto() {
+            return RecipeStepDto.aRecipeStepDto()
+                    .withPosition(position)
+                    .withStepContent(content)
+                    .withPictureUrl(pictureUrl)
+                    .build();
+        }
     }
 }

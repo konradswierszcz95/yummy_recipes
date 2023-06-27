@@ -11,12 +11,14 @@ import pl.konrad.swierszcz.dto.RecipeStepDto;
 import pl.konrad.swierszcz.model.id.RecipeId;
 import pl.konrad.swierszcz.model.id.RecipeStepId;
 
+import java.util.UUID;
+
 @Builder(builderMethodName = "aRecipeStep", setterPrefix = "with", toBuilder = true)
 @Data
 @AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
 @Entity
-@Table(name = "recipe_steps")
+@Table(name = "recipe_steps", schema = "recipe")
 public class RecipeStep {
     @EmbeddedId
     RecipeStepId id;
@@ -33,6 +35,16 @@ public class RecipeStep {
         return RecipeStep.aRecipeStep()
                 .withId(dto.getId())
                 .withRecipeId(dto.getRecipeId())
+                .withPictureUrl(dto.getPictureUrl())
+                .withPosition(dto.getPosition())
+                .withStepContent(dto.getStepContent())
+                .build();
+    }
+
+    public static RecipeStep ofDto(RecipeStepDto dto, RecipeId recipeId) {
+        return RecipeStep.aRecipeStep()
+                .withId(RecipeStepId.of(UUID.randomUUID()))
+                .withRecipeId(recipeId)
                 .withPictureUrl(dto.getPictureUrl())
                 .withPosition(dto.getPosition())
                 .withStepContent(dto.getStepContent())
