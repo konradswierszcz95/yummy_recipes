@@ -5,25 +5,25 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 
 import java.util.UUID;
 
-public class UserId extends DomainIdentity<UUID> {
+public class IngredientConverterId extends DomainIdentity<UUID> {
 
-    private UserId() {super();}
+    private IngredientConverterId() {super();}
 
-    private UserId(UUID id) {
+    private IngredientConverterId(UUID id) {
         super(id);
     }
 
-    public static UserId of(UUID uuid) {
-        return new UserId(uuid);
+    public static IngredientConverterId of(UUID uuid) {
+        return new IngredientConverterId(uuid);
     }
 
     @JsonCreator
-    public static UserId of(String uuid) {
-        return new UserId(UUID.fromString(uuid));
+    public static IngredientConverterId of(String uuid) {
+        return new IngredientConverterId(UUID.fromString(uuid));
     }
 
     @Override
-    @JsonGetter("userId")
+    @JsonGetter("ingredientConverterId")
     public String jsonRootGetter() {
         return valueAsString();
     }
@@ -32,7 +32,7 @@ public class UserId extends DomainIdentity<UUID> {
     public boolean equals(final Object obj) {
         if (this == obj)
             return true;
-        if(obj != null && !(obj instanceof UserId))
+        if(obj != null && !(obj instanceof IngredientConverterId))
             return false;
         return super.equals(obj);
     }

@@ -5,3 +5,9 @@ databaseChangeLog:
       file: db/migration/001-recipesTable.yaml
   - include:
       file: db/migration/002-recipeStepsTable.yaml
+  - include:
+      file: db/migration/003-ingredientsTable.yaml
+  - include:
+      file: db/migration/004-recipeIngredientsTable.yaml
+  - include:
+      file: db/migration/005-ingredientConvertersTable.yaml

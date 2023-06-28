@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-yummier_recipeConverters-table
+      author: Konrad Swierszcz
+      changes:
+        - createTable:
+            tableName: ingredient_converters
+            schemaName: ingredient
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: ingredient_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_related_ingredient
+                    references: ingredient.ingredients(id)
+              - column:
+                  name: gram_value
+                  type: float
+                  constraints:
+                    nullable: true
+              - column:
+                  name: milliliter_value
+                  type: float
+                  constraints:
+                    nullable: true
+              - column:
+                  name: piece_value
+                  type: float
+                  constraints:
+                    nullable: true
+              - column:
+                  name: glass_value
+                  type: float
+                  constraints:
+                    nullable: true

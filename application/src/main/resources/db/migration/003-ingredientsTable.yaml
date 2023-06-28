@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-yummier_recipeIngredients-table
+      author: Konrad Swierszcz
+      changes:
+        - createTable:
+            tableName: ingredients
+            schemaName: ingredient
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: energy_value
+                  type: float
+                  constraints:
+                    nullable: false
+              - column:
+                  name: proteins
+                  type: float
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fats
+                  type: float
+                  constraints:
+                    nullable: false
+              - column:
+                  name: carbohydrates
+                  type: float
+                  constraints:
+                    nullable: false

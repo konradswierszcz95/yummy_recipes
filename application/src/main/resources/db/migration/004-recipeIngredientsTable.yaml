@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-yummier_recipeIngredients-table
+      author: Konrad Swierszcz
+      changes:
+        - createTable:
+            tableName: recipe_ingredients
+            schemaName: recipe
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: recipe_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_related_recipe
+                    references: recipe.recipes(id)
+              - column:
+                  name: ingredient_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_related_ingredient
+                    references: ingredient.ingredients(id)
+              - column:
+                  name: amount
+                  type: float
+                  constraints:
+                    nullable: false
+              - column:
+                  name: unit
+                  type: varchar(30)
+                  constraints:
+                    nullable: false

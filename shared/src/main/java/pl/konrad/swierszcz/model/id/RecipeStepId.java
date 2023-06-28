@@ -22,7 +22,7 @@ public class RecipeStepId extends DomainIdentity<UUID> {
     }
 
     @Override
-    @JsonGetter("recipeId")
+    @JsonGetter("recipeStepId")
     public String jsonRootGetter() {
         return valueAsString();
     }
@@ -31,7 +31,7 @@ public class RecipeStepId extends DomainIdentity<UUID> {
     public boolean equals(final Object obj) {
         if (this == obj)
             return true;
-        if(obj != null && !(obj instanceof RecipeId))
+        if(obj != null && !(obj instanceof RecipeStepId))
             return false;
         return super.equals(obj);
     }
