@@ -40,3 +40,11 @@ databaseChangeLog:
                   type: float
                   constraints:
                     nullable: true
+  - changeSet:
+      id: 005-yummier_recipeConverters-removeGlassColumn
+      author: Konrad Swierszcz
+      changes:
+        - dropColumn:
+            columnName: glass_value
+            schemaName: ingredient
+            tableName: ingredient_converters

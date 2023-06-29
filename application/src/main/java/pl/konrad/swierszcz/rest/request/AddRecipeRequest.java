@@ -36,6 +36,7 @@ public class AddRecipeRequest {
                 .build();
     }
 
+    @Builder(builderMethodName = "aRequestRecipeStep", setterPrefix = "with", toBuilder = true)
     @AllArgsConstructor(staticName = "of")
     @NoArgsConstructor
     @Data

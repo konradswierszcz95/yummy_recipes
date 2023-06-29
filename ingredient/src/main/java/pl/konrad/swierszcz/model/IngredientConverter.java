@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.konrad.swierszcz.dto.IngredientConverterDto;
 import pl.konrad.swierszcz.model.id.IngredientConverterId;
 import pl.konrad.swierszcz.model.id.IngredientId;
 
@@ -23,5 +24,14 @@ public class IngredientConverter {
     Double gramValue;
     Double milliliterValue;
     Double pieceValue;
-    Double glassValue;
+
+    public static IngredientConverter fromDto(IngredientConverterDto dto, IngredientConverterId id, IngredientId ingredientId) {
+        return IngredientConverter.aIngredientConverter()
+                .withId(id)
+                .withIngredientId(ingredientId)
+                .withGramValue(dto.getGramValue())
+                .withMilliliterValue(dto.getMilliliterValue())
+                .withPieceValue(dto.getPieceValue())
+                .build();
+    }
 }
